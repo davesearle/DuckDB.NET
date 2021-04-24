@@ -78,19 +78,12 @@ namespace DuckDB.NET.Data
 
             DuckDBState result;
 
-            databaseConnections.TryGetValue(filename, out var dbFile);
-
-            if (dbFile == null)
+            var dbFile = databaseConnections.GetOrAdd(filename, file =>
             {
                 result = PlatformIndependentBindings.NativeMethods.DuckDBOpen(inMemory ? null : filename, out var duckDBDatabase);
-                if (!result.IsSuccess())
-                {
-                    throw new DuckDBException("DuckDBOpen failed", result);
-                }
 
-                dbFile = new DatabaseFile { Database = duckDBDatabase };
-                dbFile = databaseConnections.AddOrUpdate(filename, dbFile, (s, file) => file);
-            }
+                return new DatabaseFile { Database = duckDBDatabase };
+            });
 
             result = PlatformIndependentBindings.NativeMethods.DuckDBConnect(dbFile.Database, out NativeConnection);
 
