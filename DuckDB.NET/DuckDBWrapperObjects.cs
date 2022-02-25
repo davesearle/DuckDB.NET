@@ -47,4 +47,19 @@ namespace DuckDB.NET
 
         public override bool IsInvalid => handle == IntPtr.Zero;
     }
+
+    public class DuckDBAppender : SafeHandle
+    {
+        public DuckDBAppender() : base(IntPtr.Zero, true)
+        {
+        }
+
+        protected override bool ReleaseHandle()
+        {
+            PlatformIndependentBindings.NativeMethods.DuckDBAppenderDestroy(out handle);
+            return true;
+        }
+
+        public override bool IsInvalid => handle == IntPtr.Zero;
+    }
 }

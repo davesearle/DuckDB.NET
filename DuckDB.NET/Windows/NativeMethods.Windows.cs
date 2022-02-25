@@ -25,6 +25,11 @@ namespace DuckDB.NET.Windows
             NativeMethods.DuckDBDisconnect(out connection);
         }
 
+        public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result)
+        {
+            return NativeMethods.DuckDBQuery(connection, query, out result);
+        }
+
         public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, SafeUnmanagedMemoryHandle query, out DuckDBResult result)
         {
             return NativeMethods.DuckDBQuery(connection, query, out result);
@@ -150,6 +155,36 @@ namespace DuckDB.NET.Windows
         {
             NativeMethods.DuckDBFree(ptr);
         }
+
+        public DuckDBState DuckDBAppenderDestroy(out IntPtr handle)
+        {
+            return NativeMethods.DuckDBAppenderDestroy(out handle);
+        }
+
+        public DuckDBState DuckDBAppenderCreate(DuckDBNativeConnection connection, string schema, string table, out DuckDBAppender appender)
+        {
+            return NativeMethods.DuckDBAppenderCreate(connection, schema, table, out appender);
+        }
+
+        public DuckDBState DuckDBAppenderBeginRow(DuckDBAppender appender)
+        {
+            return NativeMethods.DuckDBAppenderBeginRow(appender);
+        }
+
+        public DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, string value)
+        {
+            return NativeMethods.DuckDBAppendVarChar(appender, value);
+        }
+
+        public DuckDBState DuckDBAppendDouble(DuckDBAppender appender, double value)
+        {
+            return NativeMethods.DuckDBAppendDouble(appender, value);
+        }
+
+        public DuckDBState DuckDBAppenderEndRow(DuckDBAppender appender)
+        {
+            return NativeMethods.DuckDBAppenderEndRow(appender);
+        }
     }
 
     public class NativeMethods
@@ -245,5 +280,80 @@ namespace DuckDB.NET.Windows
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_free")]
         public static extern void DuckDBFree(IntPtr ptr);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_create")]
+        public static extern DuckDBState DuckDBAppenderCreate(DuckDBNativeConnection connection, string schema, string table, out DuckDBAppender appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_error")]
+        public static extern string DuckDBAppenderError(DuckDBAppender appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_flush")]
+        public static extern DuckDBState DuckDBAppenderFlush(DuckDBAppender appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_close")]
+        public static extern DuckDBState DuckDBAppenderClose(DuckDBAppender appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_destroy")]
+        public static extern DuckDBState DuckDBAppenderDestroy(out IntPtr appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_begin_row")]
+        public static extern DuckDBState DuckDBAppenderBeginRow(DuckDBAppender appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_end_row")]
+        public static extern DuckDBState DuckDBAppenderEndRow(DuckDBAppender appender);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_bool")]
+        public static extern DuckDBState DuckDBAppendBool(DuckDBAppender appender, bool value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_int8")]
+        public static extern DuckDBState DuckDBAppendInt8(DuckDBAppender appender, sbyte value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_int16")]
+        public static extern DuckDBState DuckDBAppendInt16(DuckDBAppender appender, short value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_int32")]
+        public static extern DuckDBState DuckDBAppendInt32(DuckDBAppender appender, int value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_int64")]
+        public static extern DuckDBState DuckDBAppendInt64(DuckDBAppender appender, long value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_uint8")]
+        public static extern DuckDBState DuckDBAppendUInt8(DuckDBAppender appender, byte value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_uint16")]
+        public static extern DuckDBState DuckDBAppendUInt16(DuckDBAppender appender, ushort value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_uint32")]
+        public static extern DuckDBState DuckDBAppendUInt32(DuckDBAppender appender, uint value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_uint64")]
+        public static extern DuckDBState DuckDBAppendUInt64(DuckDBAppender appender, ulong value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_float")]
+        public static extern DuckDBState DuckDBAppendFloat(DuckDBAppender appender, float value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_double")]
+        public static extern DuckDBState DuckDBAppendDouble(DuckDBAppender appender, double value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_date")]
+        public static extern DuckDBState DuckDBAppendDate(DuckDBAppender appender, DuckDBDate value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_time")]
+        public static extern DuckDBState DuckDBAppendTime(DuckDBAppender appender, DuckDBTime value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_timestamp")]
+        public static extern DuckDBState DuckDBAppendTimestamp(DuckDBAppender appender, DuckDBTimestamp value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_varchar")]
+        public static extern DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, string value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_null")]
+        public static extern DuckDBState DuckDBAppendNull(DuckDBAppender appender);
+
+        //TODO:
+        //duckdb_state duckdb_append_blob(duckdb_appender appender, const void* data, idx_t length);
+        //duckdb_state duckdb_append_varchar_length(duckdb_appender appender, const char* val, idx_t length);
+        //duckdb_state duckdb_append_interval(duckdb_appender appender, duckdb_interval value);
+        //duckdb_state duckdb_append_hugeint(duckdb_appender appender, duckdb_hugeint value);
     }
 }

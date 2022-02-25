@@ -150,6 +150,46 @@ namespace DuckDB.NET.Linux
         {
             NativeMethods.DuckDBFree(ptr);
         }
+
+        public void DuckDBAppenderDestroy(out IntPtr handle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        DuckDBState IBindNativeMethods.DuckDBAppenderDestroy(out IntPtr handle)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DuckDBState DuckDBAppenderCreate(DuckDBNativeConnection connection, string schema, string table, out DuckDBAppender appender)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DuckDBState DuckDBAppenderBeginRow(DuckDBAppender appender)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DuckDBState DuckDBAppendDouble(DuckDBAppender appender, double value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DuckDBState DuckDBAppenderEndRow(DuckDBAppender appender)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class NativeMethods
