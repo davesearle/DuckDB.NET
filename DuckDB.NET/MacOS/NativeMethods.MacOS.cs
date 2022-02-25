@@ -25,6 +25,11 @@ namespace DuckDB.NET.MacOS
             NativeMethods.DuckDBDisconnect(out connection);
         }
 
+        public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result)
+        {
+            return NativeMethods.DuckDBQuery(connection, query, out result);
+        }
+
         public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, SafeUnmanagedMemoryHandle query, out DuckDBResult result)
         {
             return NativeMethods.DuckDBQuery(connection, query, out result);
@@ -152,11 +157,6 @@ namespace DuckDB.NET.MacOS
         }
 
         public void DuckDBAppenderDestroy(out IntPtr handle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result)
         {
             throw new NotImplementedException();
         }
