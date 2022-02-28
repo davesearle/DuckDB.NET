@@ -215,30 +215,29 @@ namespace DuckDB.NET.Linux
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_column_name")]
         public static extern string DuckDBColumnName(DuckDBResult result, long col);
 
-
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_boolean")]
-        public static extern bool DuckDBValueBoolean(DuckDBResult result, long col, long row);
+        public static extern bool DuckDBValueBoolean(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_int8")]
-        public static extern sbyte DuckDBValueInt8(DuckDBResult result, long col, long row);
+        public static extern sbyte DuckDBValueInt8(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_int16")]
-        public static extern short DuckDBValueInt16(DuckDBResult result, long col, long row);
+        public static extern short DuckDBValueInt16(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_int32")]
-        public static extern int DuckDBValueInt32(DuckDBResult result, long col, long row);
+        public static extern int DuckDBValueInt32(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_int64")]
-        public static extern long DuckDBValueInt64(DuckDBResult result, long col, long row);
+        public static extern long DuckDBValueInt64(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_float")]
-        public static extern float DuckDBValueFloat(DuckDBResult result, long col, long row);
+        public static extern float DuckDBValueFloat(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_double")]
-        public static extern double DuckDBValueDouble(DuckDBResult result, long col, long row);
+        public static extern double DuckDBValueDouble(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_varchar")]
-        public static extern IntPtr DuckDBValueVarchar(DuckDBResult result, long col, long row);
+        public static extern IntPtr DuckDBValueVarchar(in DuckDBResult result, long col, long row);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_prepare")]
         public static extern DuckDBState DuckDBPrepare(DuckDBNativeConnection connection, string query, out DuckDBPreparedStatement preparedStatement);
