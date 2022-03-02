@@ -12,8 +12,6 @@ namespace DuckDB.NET
 
         void DuckDBDisconnect(out IntPtr connection);
 
-        DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result);
-
         DuckDBState DuckDBQuery(DuckDBNativeConnection connection, SafeUnmanagedMemoryHandle query, out DuckDBResult result);
 
         void DuckDBDestroyResult(out DuckDBResult result);
@@ -71,6 +69,8 @@ namespace DuckDB.NET
         DuckDBState DuckDBAppenderBeginRow(DuckDBAppender appender);
 
         DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, string value);
+
+        DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, SafeUnmanagedMemoryHandle value);
 
         DuckDBState DuckDBAppendDouble(DuckDBAppender appender, double value);
 

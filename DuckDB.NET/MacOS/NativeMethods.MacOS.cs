@@ -190,6 +190,11 @@ namespace DuckDB.NET.MacOS
         {
             throw new NotImplementedException();
         }
+
+        public DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, SafeUnmanagedMemoryHandle value)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class NativeMethods

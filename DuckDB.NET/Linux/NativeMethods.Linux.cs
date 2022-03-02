@@ -185,6 +185,11 @@ namespace DuckDB.NET.Linux
         {
             return NativeMethods.DuckDBAppenderEndRow(appender);
         }
+
+        public DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, SafeUnmanagedMemoryHandle value)
+        {
+            return NativeMethods.DuckDBAppendVarChar(appender, value);
+        }
     }
 
     public class NativeMethods
@@ -346,6 +351,9 @@ namespace DuckDB.NET.Linux
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_varchar")]
         public static extern DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, string value);
+
+        [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_varchar")]
+        public static extern DuckDBState DuckDBAppendVarChar(DuckDBAppender appender, SafeUnmanagedMemoryHandle value);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_append_null")]
         public static extern DuckDBState DuckDBAppendNull(DuckDBAppender appender);
