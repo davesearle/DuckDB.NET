@@ -6,15 +6,15 @@ namespace DuckDB.NET
     {
         DuckDBState DuckDBOpen(string path, out DuckDBDatabase database);
 
-        void DuckDBClose(out IntPtr database);
+        void DuckDBClose(in IntPtr database);
 
         DuckDBState DuckDBConnect(DuckDBDatabase database, out DuckDBNativeConnection connection);
 
-        void DuckDBDisconnect(out IntPtr connection);
+        void DuckDBDisconnect(in IntPtr connection);
 
         DuckDBState DuckDBQuery(DuckDBNativeConnection connection, SafeUnmanagedMemoryHandle query, out DuckDBResult result);
 
-        void DuckDBDestroyResult(out DuckDBResult result);
+        void DuckDBDestroyResult(in DuckDBResult result);
 
         string DuckDBColumnName(DuckDBResult result, long col);
 
@@ -58,11 +58,11 @@ namespace DuckDB.NET
 
         DuckDBState DuckDBExecutePrepared(DuckDBPreparedStatement preparedStatement, out DuckDBResult result);
 
-        void DuckDBDestroyPrepare(out IntPtr preparedStatement);
+        void DuckDBDestroyPrepare(in IntPtr preparedStatement);
 
         void DuckDBFree(IntPtr ptr);
 
-        DuckDBState DuckDBAppenderDestroy(out IntPtr handle);
+        DuckDBState DuckDBAppenderDestroy(in IntPtr handle);
 
         DuckDBState DuckDBAppenderCreate(DuckDBNativeConnection connection, string schema, string table, out DuckDBAppender appender);
 

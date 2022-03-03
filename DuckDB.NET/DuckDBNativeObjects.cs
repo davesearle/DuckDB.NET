@@ -87,7 +87,6 @@ namespace DuckDB.NET
             get
             {
                 var result = new List<DuckDBColumn>();
-
                 for (int i = 0; i < ColumnCount; i++)
                 {
                     var column = Marshal.PtrToStructure<DuckDBColumn>(columns + Marshal.SizeOf<DuckDBColumn>() * i);

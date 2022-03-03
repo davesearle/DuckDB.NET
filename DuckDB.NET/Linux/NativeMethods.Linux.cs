@@ -10,9 +10,9 @@ namespace DuckDB.NET.Linux
             return NativeMethods.DuckDBOpen(path, out database);
         }
 
-        public void DuckDBClose(out IntPtr database)
+        public void DuckDBClose(in IntPtr database)
         {
-            NativeMethods.DuckDBClose(out database);
+            NativeMethods.DuckDBClose(in database);
         }
 
         public DuckDBState DuckDBConnect(DuckDBDatabase database, out DuckDBNativeConnection connection)
@@ -20,9 +20,9 @@ namespace DuckDB.NET.Linux
             return NativeMethods.DuckDBConnect(database, out connection);
         }
 
-        public void DuckDBDisconnect(out IntPtr connection)
+        public void DuckDBDisconnect(in IntPtr connection)
         {
-            NativeMethods.DuckDBDisconnect(out connection);
+            NativeMethods.DuckDBDisconnect(in connection);
         }
 
         public DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result)
@@ -35,9 +35,9 @@ namespace DuckDB.NET.Linux
             return NativeMethods.DuckDBQuery(connection, query, out result);
         }
 
-        public void DuckDBDestroyResult(out DuckDBResult result)
+        public void DuckDBDestroyResult(in DuckDBResult result)
         {
-            NativeMethods.DuckDBDestroyResult(out result);
+            NativeMethods.DuckDBDestroyResult(in result);
         }
 
         public string DuckDBColumnName(DuckDBResult result, long col)
@@ -145,9 +145,9 @@ namespace DuckDB.NET.Linux
             return NativeMethods.DuckDBExecutePrepared(preparedStatement, out result);
         }
 
-        public void DuckDBDestroyPrepare(out IntPtr preparedStatement)
+        public void DuckDBDestroyPrepare(in IntPtr preparedStatement)
         {
-            NativeMethods.DuckDBDestroyPrepare(out preparedStatement);
+            NativeMethods.DuckDBDestroyPrepare(in preparedStatement);
         }
 
         /// <inheritdoc />
@@ -156,9 +156,9 @@ namespace DuckDB.NET.Linux
             NativeMethods.DuckDBFree(ptr);
         }
 
-        public DuckDBState DuckDBAppenderDestroy(out IntPtr handle)
+        public DuckDBState DuckDBAppenderDestroy(in IntPtr handle)
         {
-            return NativeMethods.DuckDBAppenderDestroy(out handle);
+            return NativeMethods.DuckDBAppenderDestroy(in handle);
         }
 
         public DuckDBState DuckDBAppenderCreate(DuckDBNativeConnection connection, string schema, string table, out DuckDBAppender appender)
@@ -200,13 +200,13 @@ namespace DuckDB.NET.Linux
         public static extern DuckDBState DuckDBOpen(string path, out DuckDBDatabase database);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_close")]
-        public static extern void DuckDBClose(out IntPtr database);
+        public static extern void DuckDBClose(in IntPtr database);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_connect")]
         public static extern DuckDBState DuckDBConnect(DuckDBDatabase database, out DuckDBNativeConnection connection);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_disconnect")]
-        public static extern void DuckDBDisconnect(out IntPtr connection);
+        public static extern void DuckDBDisconnect(in IntPtr connection);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_query")]
         public static extern DuckDBState DuckDBQuery(DuckDBNativeConnection connection, string query, out DuckDBResult result);
@@ -215,10 +215,10 @@ namespace DuckDB.NET.Linux
         public static extern DuckDBState DuckDBQuery(DuckDBNativeConnection connection, SafeUnmanagedMemoryHandle query, out DuckDBResult result);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_destroy_result")]
-        public static extern void DuckDBDestroyResult(out DuckDBResult result);
+        public static extern void DuckDBDestroyResult(in DuckDBResult result);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_column_name")]
-        public static extern string DuckDBColumnName(DuckDBResult result, long col);
+        public static extern string DuckDBColumnName(in DuckDBResult result, long col);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_value_boolean")]
         public static extern bool DuckDBValueBoolean(in DuckDBResult result, long col, long row);
@@ -281,7 +281,7 @@ namespace DuckDB.NET.Linux
         public static extern DuckDBState DuckDBExecutePrepared(DuckDBPreparedStatement preparedStatement, out DuckDBResult result);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_destroy_prepare")]
-        public static extern void DuckDBDestroyPrepare(out IntPtr preparedStatement);
+        public static extern void DuckDBDestroyPrepare(in IntPtr preparedStatement);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_free")]
         public static extern void DuckDBFree(IntPtr ptr);
@@ -299,7 +299,7 @@ namespace DuckDB.NET.Linux
         public static extern DuckDBState DuckDBAppenderClose(DuckDBAppender appender);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_destroy")]
-        public static extern DuckDBState DuckDBAppenderDestroy(out IntPtr appender);
+        public static extern DuckDBState DuckDBAppenderDestroy(in IntPtr appender);
 
         [DllImport(DuckDbLibrary, CallingConvention = CallingConvention.Cdecl, EntryPoint = "duckdb_appender_begin_row")]
         public static extern DuckDBState DuckDBAppenderBeginRow(DuckDBAppender appender);
