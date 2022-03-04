@@ -6,33 +6,33 @@ namespace DuckDB.NET
     {
         DuckDBState DuckDBOpen(string path, out DuckDBDatabase database);
 
-        void DuckDBClose(in IntPtr database);
+        void DuckDBClose(out IntPtr database);
 
         DuckDBState DuckDBConnect(DuckDBDatabase database, out DuckDBNativeConnection connection);
 
-        void DuckDBDisconnect(in IntPtr connection);
+        void DuckDBDisconnect(out IntPtr connection);
 
         DuckDBState DuckDBQuery(DuckDBNativeConnection connection, SafeUnmanagedMemoryHandle query, out DuckDBResult result);
 
-        void DuckDBDestroyResult(in DuckDBResult result);
+        void DuckDBDestroyResult(ref DuckDBResult result);
 
-        string DuckDBColumnName(DuckDBResult result, long col);
+        string DuckDBColumnName(ref DuckDBResult result, long col);
 
-        bool DuckDBValueBoolean(DuckDBResult result, long col, long row);
+        bool DuckDBValueBoolean(ref DuckDBResult result, long col, long row);
 
-        sbyte DuckDBValueInt8(DuckDBResult result, long col, long row);
+        sbyte DuckDBValueInt8(ref DuckDBResult result, long col, long row);
 
-        short DuckDBValueInt16(DuckDBResult result, long col, long row);
+        short DuckDBValueInt16(ref DuckDBResult result, long col, long row);
 
-        int DuckDBValueInt32(DuckDBResult result, long col, long row);
+        int DuckDBValueInt32(ref DuckDBResult result, long col, long row);
 
-        long DuckDBValueInt64(DuckDBResult result, long col, long row);
+        long DuckDBValueInt64(ref DuckDBResult result, long col, long row);
 
-        float DuckDBValueFloat(DuckDBResult result, long col, long row);
+        float DuckDBValueFloat(ref DuckDBResult result, long col, long row);
 
-        double DuckDBValueDouble(DuckDBResult result, long col, long row);
+        double DuckDBValueDouble(ref DuckDBResult result, long col, long row);
 
-        IntPtr DuckDBValueVarchar(DuckDBResult result, long col, long row);
+        IntPtr DuckDBValueVarchar(ref DuckDBResult result, long col, long row);
 
         DuckDBState DuckDBPrepare(DuckDBNativeConnection connection, string query, out DuckDBPreparedStatement preparedStatement);
 
@@ -58,11 +58,11 @@ namespace DuckDB.NET
 
         DuckDBState DuckDBExecutePrepared(DuckDBPreparedStatement preparedStatement, out DuckDBResult result);
 
-        void DuckDBDestroyPrepare(in IntPtr preparedStatement);
+        void DuckDBDestroyPrepare(out IntPtr preparedStatement);
 
         void DuckDBFree(IntPtr ptr);
 
-        DuckDBState DuckDBAppenderDestroy(in IntPtr handle);
+        DuckDBState DuckDBAppenderDestroy(out IntPtr handle);
 
         DuckDBState DuckDBAppenderCreate(DuckDBNativeConnection connection, string schema, string table, out DuckDBAppender appender);
 
